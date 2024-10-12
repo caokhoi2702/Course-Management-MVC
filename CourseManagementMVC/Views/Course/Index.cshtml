@@ -1,0 +1,60 @@
+﻿@model IEnumerable<KhoaHoc>
+<style>
+    .course-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 80% 20%;
+        grid-template-rows: auto;
+    }
+
+    .subject-container {
+        column-count: 2;
+    }
+
+    .course-sidebar {
+        width: 200px;
+        padding: 20px;
+    }
+
+    .course-content {
+        width: 100%;
+        flex: 1;
+        padding: 20px;
+    }
+
+    .course-title {
+        padding-bottom: 2px;
+        border-bottom: 1px solid;
+    }
+
+</style>
+
+<div class="course-container">
+    <div class="course-content">
+        <h2 class="course-title">Khóa học: @ViewBag.curCourse</h2>
+        <div class="subject-container">
+            <ol>
+                <!-- Display list of subjects of a course -->
+                @if (ViewBag.Subjects != null)
+                {
+                    var subjects = ViewBag.Subjects;
+                    foreach (var subject in subjects)
+                    {
+                        <li>@subject.TenMonHoc</li> 
+                    }
+                }
+            </ol>
+        </div>
+    </div>
+    <div class="course-sidebar">
+        <h2 class="course-title">Khóa học</h2>
+        <ul>
+        <!-- Display list of courses -->
+        @foreach (var course in Model)
+        {
+                <li><a asp-controller="Course" asp-action="Index" asp-route-id="@course.ID">@course.TenKhoaHoc</a></li>
+        }
+        </ul>
+
+    </div>
+</div>
